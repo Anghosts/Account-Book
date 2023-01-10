@@ -10,5 +10,27 @@
 		"app-plus": {
 			"background": "#efeff4"
 		}
-	}
+	},
+	"subPackages": [
+		{
+			"root": "sub_package",
+			"pages": [
+			{
+				"path" : "record-add/record-add",
+				"style" : {
+					"enablePullDownRefresh": false
+				}
+			}
+          ,{
+                    "path" : "record-list/record-list",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+		}
+	]
 }

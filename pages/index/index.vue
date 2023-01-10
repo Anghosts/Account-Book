@@ -15,18 +15,25 @@
 		</view>
 		
 		<uni-list class="date-list">
-			<uni-list-item :title="item.title" :note="item.date" link v-for="(item,index) in dateList" :key="index">
+			<uni-list-item 
+				:title="item.title" 
+				:note="item.date" 
+				link 
+				v-for="(item,index) in dateList" 
+				:key="index"
+				@click="gotoRecordList(item.title)"
+			>
 				<template v-slot:footer>
 					<view class="expend-income">
-						<text class="expend">{{item.expend | tofixed}}</text>
 						<text class="income">{{item.income | tofixed}}</text>
+						<text class="expend">{{item.expend | tofixed}}</text>
 					</view>
 				</template>
 			</uni-list-item>
 		</uni-list>
 			
 		<view class="bottom-nav">
-			<button class="plus-btn" hover-class="plus-btn-hover">记一笔</button>
+			<button class="plus-btn" hover-class="plus-btn-hover" @click="gotoRecordAdd">记一笔</button>
 		</view>
 	</view>
 </template>
@@ -63,23 +70,35 @@
 		methods: {
 			// 今天
 			today() {
-				this.dateList[0].date = dayjs().format('M月D日');
+				this.dateList[0].date = dayjs().format('M月D日')
 			},
 			// 本周
 			week() {
-				let start = dayjs().day(1).format('M月D日');
-				let end = dayjs().day(7).format('M月D日');
+				let start = dayjs().day(1).format('M月D日')
+				let end = dayjs().day(7).format('M月D日')
 				this.dateList[1].date = `${start} - ${end}`
 			},
 			// 本月
 			month() {
-				let start = dayjs().startOf('month').format('M月D日');
-				let end = dayjs().endOf('month').format('M月D日');
+				let start = dayjs().startOf('month').format('M月D日')
+				let end = dayjs().endOf('month').format('M月D日')
 				this.dateList[2].date = `${start} - ${end}`
 			},
 			// 本年
 			year() {
-				this.dateList[3].date = dayjs().format('YYYY年');
+				this.dateList[3].date = dayjs().format('YYYY年')
+			},
+			// 跳转到 添加记录 页面
+			gotoRecordAdd() {
+				uni.navigateTo({
+					url: '/sub_package/record-add/record-add'
+				})
+			},
+			// 跳转到 记录列表 页面
+			gotoRecordList(title) {
+				uni.navigateTo({
+					url: '/sub_package/record-list/record-list?scene=' + title
+				})
 			}
 		},
 		computed: {
@@ -150,10 +169,10 @@
 				flex-direction: column;
 				font-size: 14px;
 				.expend {
-					color: #d66854;
+					color: #3bb28d;
 				}
 				.income {
-					color: #3bb28d;
+					color: #d66854;
 				}
 			}
 		}
